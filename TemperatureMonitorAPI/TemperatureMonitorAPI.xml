@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TemperatureMonitorAPI</name>
+    </assembly>
+    <members>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.GetPatientDetailsById(System.Int32)">
+            <summary>
+            Get Patient Details by id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.GetPatientDetails">
+            <summary>
+            Get Patient Details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.GetAllPatientDetail">
+            <summary>
+            Get All Patient Details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.UpdatePatientDetails(TemperatureMonitorAPI.Models.Dtos.PatientDetailCreateDto)">
+            <summary>
+            Update Patient Details
+            </summary>
+            <param name="pdDto"> The json object of patient details </param>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.CreatePatientDetails(TemperatureMonitorAPI.Models.Dtos.PatientDetailCreateDto)">
+            <summary>
+            Create the Patient Details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.DeletePatientDetails(System.Int32)">
+            <summary>
+            Remove the Patient Details
+            </summary>
+            <param name="id:int:int"> The id of the patient </param>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsV2Controller.GetPatientDetails">
+            <summary>
+            Get Patient Details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.GetTempLogs">
+            <summary>
+            Get Temperature Logs
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.GetTempLogs(System.DateTime,System.DateTime)">
+            <summary>
+            Get Fever Logs
+            </summary>
+            <param name="start:date:date"> Start day of logs </param>
+            <param name="end:date:date"> End day of logs </param>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.CreateTempLogs(TemperatureMonitorAPI.Models.Dtos.TemperatureLogEntryCreateDto)">
+            <summary>
+            Create a Body Temperature Log
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.DeleteTempLog(System.Int32)">
+            <summary>
+            Remove a Body Temperature Log
+            </summary>
+            <param name="id"> The id of the Body temperature log </param>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.UsersController.Authenticate(TemperatureMonitorAPI.Models.AuthModel)">
+            <summary>
+            Authenticate to use the service with a token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.UsersController.Register(TemperatureMonitorAPI.Models.AuthModel)">
+            <summary>
+            Register with the service
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
