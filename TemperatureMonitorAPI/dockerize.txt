@@ -4,7 +4,7 @@ dotnet publish -o .\bin\publish
 -- Create and run Mysql image
 docker pull mysql:latest
 docker run --name mysql1 -e MYSQL_ROOT_PASSWORD=my-pw -d -p 3306:3306 mysql
-
+-- add-migration "change"
 -- update-database to create tables
 
 -- Create and run project image

@@ -22,11 +22,12 @@ namespace TemperatureMonitorAPI.Controllers
     {
         private readonly IPatientDetailRepository _pdRepo;
         private readonly IMapper _mapper;
-
-        public PatientDetailsController(IPatientDetailRepository pdRepo, IMapper mapper )
+        private readonly IUserRepository _userRepo;
+        public PatientDetailsController(IPatientDetailRepository pdRepo, IMapper mapper, IUserRepository uRepo )
         {
             _pdRepo = pdRepo;
             _mapper = mapper;
+            _userRepo = uRepo;
         }
 
         /// <summary>
@@ -112,22 +113,27 @@ namespace TemperatureMonitorAPI.Controllers
         /// </summary>
         /// <param name="pdDto"> The json object of patient details </param>
         /// <returns></returns>
-        [HttpPatch("{id}", Name = "UpdatePatientDetails")]
+        [HttpPatch("{id:int}", Name = "UpdatePatientDetails")]
         [ProducesResponseType(204)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdatePatientDetails([FromBody] PatientDetailCreateDto pdDto)
+        public IActionResult UpdatePatientDetails(int id, [FromBody] PatientDetailDto pdDto)
         {
-            int Userid = 0;
-            int.TryParse(User.Identity.Name, out Userid);
-
-            if (pdDto == null || Userid==0)
+            if (pdDto == null || id != pdDto.UserId)
             {
                 return BadRequest(ModelState);
             }
+            //used to update only logged in user patient details
+            //int Userid = 0;
+            //int.TryParse(User.Identity.Name, out Userid);
+
+            //if (pdDto == null || Userid==0)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             var obj = _mapper.Map<PatientDetail>(pdDto);
-            obj.UserId = Userid;
+          //  obj.UserId = Userid;
             if (!_pdRepo.UpdatePatientDetail(obj))
             {
                 ModelState.AddModelError("", $"Something went wrong when updating the record {pdDto}");
@@ -135,6 +141,48 @@ namespace TemperatureMonitorAPI.Controllers
             }
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Create Patient and User
+        /// </summary>
+        /// <description>Creates a patient and user with email as username</description>
+        /// <returns></returns>
+        
+        [HttpPost("wu/", Name = "CreatePatientDetailsWithUser")]
+        [ProducesResponseType(201, Type = typeof(PatientDetailDto))]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult CreatePatientDetailsWithUser([FromBody] PatientDetailCreateDto pdDto)
+        {
+            
+            if (pdDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            bool ifUserNameUnique = !_pdRepo.Exists(pdDto.Email);
+
+            if (pdDto.Email!=null && !ifUserNameUnique)
+            {
+                return BadRequest(new { message = "This email already exists" });
+            }
+            var user = _userRepo.Register(pdDto.Email, "dummypassword");
+
+            if (user == null)
+            {
+                return BadRequest(new { message = "Error while registering" });
+            }
+
+            var obj = _mapper.Map<PatientDetail>(pdDto);
+            obj.UserId = user.Id;
+            if (!_pdRepo.CreatePatientDetail(obj))
+            {
+                ModelState.AddModelError("", $"Something went wrong when creating the record {user.Id}");
+                return StatusCode(500, ModelState);
+            }
+
+            return CreatedAtRoute("GetPatientDetails", new { version = HttpContext.GetRequestedApiVersion().ToString(), id = obj.UserId }, obj);
         }
 
         /// <summary>
@@ -150,6 +198,8 @@ namespace TemperatureMonitorAPI.Controllers
             int Userid = 0;
             int.TryParse(User.Identity.Name,out Userid);
 
+
+
             if (pdDto == null || Userid==0)
             {
                 return BadRequest(ModelState);
@@ -159,17 +209,7 @@ namespace TemperatureMonitorAPI.Controllers
                 ModelState.AddModelError("", "This user has already a profile!");
                 return StatusCode(404, ModelState);
             }
-            //if (_pdRepo.Exists(pdDto.Id))
-            //{
-            //    ModelState.AddModelError("", "This user id has already a profile!");
-            //    return StatusCode(404, ModelState);
-            //}
-            //if (pdDto.Email==null)
-            //{
-            //    ModelState.AddModelError("", "This email is required");
-            //    return StatusCode(404, ModelState);
-            //}
-
+           
             var obj = _mapper.Map<PatientDetail>(pdDto);
             obj.UserId = Userid;
             if (!_pdRepo.CreatePatientDetail(obj))
@@ -192,14 +232,14 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeletePatientDetails(int id)
         {
-            int Userid = 0;
-            int.TryParse(User.Identity.Name, out Userid);
+            //int Userid = 0;
+            //int.TryParse(User.Identity.Name, out Userid);
 
-            if (id != Userid)
-            {
-                ModelState.AddModelError("", "You need to know your Userid to delete your profile!");
-                return StatusCode(404, ModelState);
-            }
+            //if (id != Userid)
+            //{
+            //    ModelState.AddModelError("", "You need to know your Userid to delete your profile!");
+            //    return StatusCode(404, ModelState);
+            //}
 
             if (!_pdRepo.Exists(id))
             {

@@ -30,12 +30,12 @@ namespace TemperatureMonitorAPI.Repository
 
         public ICollection<TemperatureLogEntry> GetFeverLogEntriesForPatientAndPeriod(int Userid, DateTime start, DateTime end)
         {
-            return _db.TemperatureLogEntries.Include(c => c.User).Where(c => c.User.Id == Userid).Where(c => c.BodyTemperatureC>37).ToList<TemperatureLogEntry>();
+            return _db.TemperatureLogEntries.Include(c => c.PatientDetail).Where(c => c.PatientDetail.UserId == Userid).Where(c => c.BodyTemperatureC>37).ToList<TemperatureLogEntry>();
         }
 
-        public ICollection<TemperatureLogEntry> GetTemperatureLogEntriesForPatient(int Userid)
+        public ICollection<TemperatureLogEntry> GetTemperatureLogEntriesForPatient(int? Userid)
         {
-            return _db.TemperatureLogEntries.Include(c => c.User).Where(c => c.User.Id == Userid).ToList<TemperatureLogEntry>();
+            return _db.TemperatureLogEntries.Include(c => c.PatientDetail).Where(c => Userid==null || c.PatientDetail.UserId == Userid.GetValueOrDefault() ).ToList<TemperatureLogEntry>();
         }
         public bool Exists(int id)
         {

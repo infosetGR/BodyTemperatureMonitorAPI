@@ -17,7 +17,9 @@ namespace TemperatureMonitorAPI.Models.Dtos
 
         public float BodyTemperatureF => 32 + (int)(BodyTemperatureC / 0.5556);
 
-        public User User { get; set; }
+        [Required]        
+        public int UserId { get; set; }
+     
         public DateTime Created { get; set; }
 
     }

@@ -9,10 +9,12 @@ namespace TemperatureMonitorAPI.Models.Dtos
 {
     public class TemperatureLogEntryCreateDto
     {
-        
+
+        [Required]
+        public int UserId { get; set; }
         [Required]
         public float BodyTemperatureC { get; set; }
-    
+       
     }
 
    

@@ -6,7 +6,7 @@ using TemperatureMonitorWeb.Models;
 
 namespace TemperatureMonitorWeb.Repository.IRepository
 {
-    public interface ITemperatureLogEntryRepository:IRepository<TemperatureLogEntry>
+    public interface ITempRepository:IRepository<Temp>
     {
     }
 }

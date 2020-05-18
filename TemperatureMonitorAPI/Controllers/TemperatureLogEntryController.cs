@@ -35,14 +35,15 @@ namespace TemperatureMonitorAPI.Controllers
         /// <returns></returns>
         [HttpGet(Name = "GetTempLogs")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetTempLogs()
+        public IActionResult GetTempLogs(int? Userid)
         {
-            int Userid = 0;
-            int.TryParse(User.Identity.Name, out Userid);
-            if ( Userid==0)
-            {
-                return StatusCode(404, ModelState);
-            }
+            //int Userid = 0;
+            //int.TryParse(User.Identity.Name, out Userid);
+            //if ( Userid==0)
+            //{
+            //    return StatusCode(404, ModelState);
+            //}
+            
             var objList = _tRepo.GetTemperatureLogEntriesForPatient(Userid);
             var objDto = new List<TemperatureLogEntryDto>();
             foreach (var obj in objList)
@@ -61,14 +62,14 @@ namespace TemperatureMonitorAPI.Controllers
         /// <returns></returns>
         [HttpGet("Fever/", Name = "GetFeverLogs")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetTempLogs(DateTime start, DateTime end)
+        public IActionResult GetTempLogs(int Userid,DateTime start, DateTime end)
         {
-            int Userid = 0;
-            int.TryParse(User.Identity.Name, out Userid);
-            if (Userid == 0)
-            {
-                return StatusCode(404, ModelState);
-            }
+            //int Userid = 0;
+            //int.TryParse(User.Identity.Name, out Userid);
+            //if (Userid == 0)
+            //{
+            //    return StatusCode(404, ModelState);
+            //}
             var objList = _tRepo.GetFeverLogEntriesForPatientAndPeriod(Userid, start, end);
             var objDto = new List<TemperatureLogEntryDto>();
             foreach (var obj in objList)
@@ -90,12 +91,12 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult CreateTempLogs([FromBody] TemperatureLogEntryCreateDto t)
         {
-            int Userid = 0;
-            int.TryParse(User.Identity.Name, out Userid);
-            if (Userid == 0)
-            {
-                return StatusCode(404, ModelState);
-            }
+            //int Userid = 0;
+            //int.TryParse(User.Identity.Name, out Userid);
+            //if (Userid == 0)
+            //{
+            //    return StatusCode(404, ModelState);
+            //}
 
             if (t.BodyTemperatureC<35 ||  t.BodyTemperatureC>42)
             {
@@ -103,7 +104,7 @@ namespace TemperatureMonitorAPI.Controllers
                 return StatusCode(500, ModelState);
             }
             var tObj = _mapper.Map<TemperatureLogEntry>(t);
-            tObj.UserId = Userid;
+          
             if (!_tRepo.CreateTemperatureLogEntry(tObj))
             {
                 ModelState.AddModelError("", $"Something went wrong when creating the record {t.BodyTemperatureC}");
@@ -124,12 +125,12 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteTempLog(int id)
         {
-            int Userid = 0;
-            int.TryParse(User.Identity.Name, out Userid);
-            if (Userid == 0)
-            {
-                return StatusCode(404, ModelState);
-            }
+            //int Userid = 0;
+            //int.TryParse(User.Identity.Name, out Userid);
+            //if (Userid == 0)
+            //{
+            //    return StatusCode(404, ModelState);
+            //}
 
             if (!_tRepo.Exists(id))
             {
@@ -137,10 +138,10 @@ namespace TemperatureMonitorAPI.Controllers
             }
 
             var tempObj = _tRepo.GetTemperatureLogEntry(id);
-            if (tempObj.UserId!=Userid)
-            {
-                return NotFound();
-            }
+            //if (tempObj.UserId!=Userid)
+            //{
+            //    return NotFound();
+            //}
 
 
             if (!_tRepo.DeleteTemperatureLogEntry(tempObj))

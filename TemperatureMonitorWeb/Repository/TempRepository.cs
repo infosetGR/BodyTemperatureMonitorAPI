@@ -8,11 +8,11 @@ using TemperatureMonitorWeb.Repository.IRepository;
 
 namespace TemperatureMonitorWeb.Repository
 {
-    public class TemperatureLogEntryRepository : Repository<TemperatureLogEntry>, ITemperatureLogEntryRepository
+    public class TempRepository : Repository<Temp>, ITempRepository
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        public TemperatureLogEntryRepository(IHttpClientFactory clientFactory):base(clientFactory)
+        public TempRepository(IHttpClientFactory clientFactory):base(clientFactory)
         {
             _clientFactory = clientFactory;
         }

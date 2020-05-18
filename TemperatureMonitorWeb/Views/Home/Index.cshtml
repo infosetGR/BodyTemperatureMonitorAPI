@@ -1,8 +1,68 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model TemperatureMonitorWeb.Models.ViewModel.IndexVM
 
-<div class="text-center">
-    <h1 class="display-4">Welcome API</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row pb-4 backgroundWhite">
+        @foreach (var pd in Model.PatientList)
+        {
+        <div class="container backgroundWhite pb-4">
+            <div class="card border">
+                <div class="card-header ml-0 row container">
+                    <div class="col-12 col-md-6">
+                        <h1 class="text-warning">@pd.Name  @pd.Lastname</h1>
+                    </div>
+                    <div class="col-12 col-md-6 text-md-right">
+                        <h1 class="text-info"> </h1>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container rounded p-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-8">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3 style="color:#bbb9b9">Age: @pd.Age &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: @pd.Email&nbsp; </h3>
+                                    </div>
+                                    <div class="col-12">
+                                        @if  (Model.TempList.Where(t=>t.UserId==pd.UserId).Count()>0)
+                                        {
+                                        <table class="table table-striped" style="border:1px solid #808080 ">
+                                            <tr class="table-secondary">
+                                                <th>Temp C</th>
+                                                <th>Temp F</th>
+                                                <th>Date</th>
+                                            </tr>
+                                            @foreach (var t in Model.TempList.Where(t => t.UserId == pd.UserId))
+                                            {
+                                                <tr>
+                                                    <td>@t.BodyTemperatureC</td>
+                                                    <td>@t.BodyTemperatureF</td>
+                                                    <td>@t.Created</td>
+                                                </tr>
+                                            }
+                                            </table>
+                                            }
+                                        else
+                                        {
+                                        <p>No Temperature entries exists</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 text-center">
+                                @if (pd.Picture != null)
+                                {
+                                    var base64 = Convert.ToBase64String(pd.Picture );
+                                    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+                                <img src="@imgsrc" class="card-img-top p-2 rounded" width="100%" />
+                                }
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
 </div>

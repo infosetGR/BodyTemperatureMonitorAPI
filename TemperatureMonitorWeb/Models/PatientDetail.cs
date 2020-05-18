@@ -10,8 +10,11 @@ namespace TemperatureMonitorWeb.Models
     public class PatientDetail
     {
         public int UserId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Lastname { get; set; }
+        [Required]
         public string Email { get; set; }
         public string Age { get; set; }
         public byte[] Picture { get; set; }

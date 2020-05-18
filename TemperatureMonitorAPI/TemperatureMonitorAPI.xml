@@ -22,11 +22,18 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.UpdatePatientDetails(TemperatureMonitorAPI.Models.Dtos.PatientDetailCreateDto)">
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.UpdatePatientDetails(System.Int32,TemperatureMonitorAPI.Models.Dtos.PatientDetailDto)">
             <summary>
             Update Patient Details
             </summary>
             <param name="pdDto"> The json object of patient details </param>
+            <returns></returns>
+        </member>
+        <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.CreatePatientDetailsWithUser(TemperatureMonitorAPI.Models.Dtos.PatientDetailCreateDto)">
+            <summary>
+            Create Patient and User
+            </summary>
+            <description>Creates a patient and user with email as username</description>
             <returns></returns>
         </member>
         <member name="M:TemperatureMonitorAPI.Controllers.PatientDetailsController.CreatePatientDetails(TemperatureMonitorAPI.Models.Dtos.PatientDetailCreateDto)">
@@ -48,13 +55,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.GetTempLogs">
+        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.GetTempLogs(System.Nullable{System.Int32})">
             <summary>
             Get Temperature Logs
             </summary>
             <returns></returns>
         </member>
-        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.GetTempLogs(System.DateTime,System.DateTime)">
+        <member name="M:TemperatureMonitorAPI.Controllers.TemperatureLogEntryController.GetTempLogs(System.Int32,System.DateTime,System.DateTime)">
             <summary>
             Get Fever Logs
             </summary>

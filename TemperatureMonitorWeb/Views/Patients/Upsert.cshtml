@@ -1,8 +1,8 @@
 ﻿@model TemperatureMonitorWeb.Models.PatientDetail
 
 @{
-       var title = "Create Patient";
- }
+    var title = "Create Patient";
+}
 
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
@@ -38,6 +38,15 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
                     <label asp-for="Age"></label>
                 </div>
                 <div class="col-8">
@@ -54,25 +63,25 @@
 
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Created"></label>
-                </div>
-                <div class="col-8">
-                    @{
-                        var dateCr = "";
-                        if (Model.UserId != 0)
-                        {
-                            dateCr = Model.Created.ToShortDateString();
+            @*<div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Created"></label>
+                    </div>
+                    <div class="col-8">
+                        @{
+                            var dateCr = "";
+                            if (Model.UserId != 0)
+                            {
+                                dateCr = Model.Created.ToShortDateString();
+                            }
                         }
-                    }
-                    <input id="datepicker" value="@dateCr" type="text" asp-for="@Model.Created" class="form-control" />
-                </div>
-            </div>
+                        <input id="datepicker" value="@dateCr" type="text" asp-for="@Model.Created" class="form-control" />
+                    </div>
+                </div>*@
             <div class="form-group row">
                 <div class="col-4 offset-4">
                     <button type="submit" class="btn btn-primary form-control">
-                        @(Model.UserId==0?"Create":"Update")
+                        @(Model.UserId == 0 ? "Create" : "Update")
                     </button>
                 </div>
                 <div class="col-4">
@@ -101,10 +110,11 @@
             $('#datepicker').datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange:"1960:2020"
+                yearRange: "1960:2020"
             })
 
         })
     </script>
-
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

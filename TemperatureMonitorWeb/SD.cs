@@ -9,6 +9,6 @@ namespace TemperatureMonitorWeb
     {
         public static string APIBaseUrl = "https://localhost:44396/";
         public static string PatientDetailsAPIPath = APIBaseUrl+"api/v1/PatientDetails/";
-        public static string TemperaturesLogEntryAPIPath = APIBaseUrl+"api/v1/TemperaturesLogEntry/";
+        public static string TemperaturesLogEntryAPIPath = APIBaseUrl+"api/v1/TemperatureLogEntry/";
     }
 }

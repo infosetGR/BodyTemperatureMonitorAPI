@@ -26,7 +26,7 @@ namespace TemperatureMonitorWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IPatientDetailRepository, PatientDetailRepository>();
-            services.AddScoped<ITemperatureLogEntryRepository, TemperatureLogEntryRepository>();
+            services.AddScoped<ITempRepository, TempRepository>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 

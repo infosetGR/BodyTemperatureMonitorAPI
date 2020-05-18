@@ -20,7 +20,7 @@ namespace TemperatureMonitorAPI.Models
 
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public PatientDetail PatientDetail { get; set; }
         public DateTime Created { get; set; }
 
     }

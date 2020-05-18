@@ -1,0 +1,62 @@
+﻿@model TemperatureMonitorWeb.Models.ViewModel.TempVM
+
+@{
+    var title = "Create Temperature Log";
+}
+
+
+<form method="post" asp-action="Upsert">
+
+    <div class="row px-2 mx-2 backgroundWhite border">
+        <div asp-validation-summary="ModelOnly" class="text-danger" />
+        @if (Model.Temp.Id != 0)
+        {
+            <input type="hidden" asp-for="Temp.Id" />
+            title = "Edit Entry";
+        }
+        <div class="col-12 p-3">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                       Patient
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Temp.UserId, Model.PatientList, "Please select a Patient", new { @class = "form-control" })
+                    <span asp-validation-for="Temp.UserId" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Temp.BodyTemperatureC"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Temp.BodyTemperatureC" class="form-control" />
+                    <span asp-validation-for="Temp.BodyTemperatureC" class="text-danger" />
+                    @*<select asp-for="Trail.Difficulty"
+                            asp-items="Html.GetEnumSelectList<Trail.DifficultyType>()"
+                            class="form-control"></select>*@
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 offset-4">
+                    <button type="submit" class="btn btn-primary form-control">
+                        @(Model.Temp.Id == 0 ? "Create" : "Update")
+                    </button>
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
+</form>
+
+@section scripts {
+  
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

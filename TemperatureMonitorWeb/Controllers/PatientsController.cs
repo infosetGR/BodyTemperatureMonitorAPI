@@ -59,19 +59,22 @@ namespace TemperatureMonitorWeb.Controllers
                     }
                     obj.Picture = p1;
                 }
-                else
-                {
-                    var objfromDb = await _pdRepo.GetAsync(SD.PatientDetailsAPIPath, obj.UserId);
-                    obj.Picture = objfromDb.Picture;
-                }
+                //else
+                //{
+                //    if (obj.UserId != 0)
+                //    {
+                //        var objfromDb = await _pdRepo.GetAsync(SD.PatientDetailsAPIPath + "id?Userid=", obj.UserId);
+                //        obj.Picture = objfromDb.Picture;
+                //    }
+                //}
 
                 if (obj.UserId==0)
                 {
-                    await _pdRepo.CreateAsync(SD.PatientDetailsAPIPath, obj);
+                    await _pdRepo.CreateAsync(SD.PatientDetailsAPIPath+"wu/", obj);
                 }
                 else
                 {
-                    await _pdRepo.UpdateAsync(SD.PatientDetailsAPIPath+obj.UserId, obj);
+                    await _pdRepo.UpdateAsync(SD.PatientDetailsAPIPath +  obj.UserId, obj);
                 }
                 return RedirectToAction(nameof(Index));
 
@@ -83,7 +86,20 @@ namespace TemperatureMonitorWeb.Controllers
 
         }
 
-            public async Task<IActionResult> GetPatientDetails()
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var status=   await _pdRepo.DeleteAsync(SD.PatientDetailsAPIPath,id);
+            if (status)
+            {
+                return Json(new { success = true, message = "Delete Successful" });
+            }
+
+            return Json(new { success = false, message = "Delete Failed" });
+
+        }
+
+        public async Task<IActionResult> GetPatientDetails()
         {
             return Json(new { data = await _pdRepo.GetAllAsync(SD.PatientDetailsAPIPath+"all/") });
         }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TemperatureMonitorAPI.Data;
 
 namespace TemperatureMonitorAPI.Migrations
 {
     [DbContext(typeof(TMContext))]
-    partial class TMContextModelSnapshot : ModelSnapshot
+    [Migration("20200518155031_linktemptopatient")]
+    partial class linktemptopatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
