@@ -21,4 +21,6 @@ Once the reported body temperature increases above 37°C an ongoing fever log is
 Note: Temperature is validated. Any temperature below 35°C or above 42°C is not accepted.
 Patients can also view all the fever sessions they had between any two dates
 
- 
+ Change Log:
+ 5/5/2020 API implementation
+ 17/5/2020 Asp.net core MVC front end
