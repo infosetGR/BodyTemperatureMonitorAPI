@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TemperatureMonitorWeb.Models;
 using TemperatureMonitorWeb.Models.ViewModel;
@@ -10,6 +12,7 @@ using TemperatureMonitorWeb.Repository.IRepository;
 
 namespace TemperatureMonitorWeb.Controllers
 {
+    [Authorize]
     public class TempsController : Controller
     {
         private readonly IPatientDetailRepository _pdRepo;
@@ -28,7 +31,7 @@ namespace TemperatureMonitorWeb.Controllers
 
         public async Task<IActionResult> Upsert(int? id)
         {
-            IEnumerable<PatientDetail> pdList = await _pdRepo.GetAllAsync(SD.PatientDetailsAPIPath + "all/");
+            IEnumerable<PatientDetail> pdList = await _pdRepo.GetAllAsync(SD.PatientDetailsAPIPath + "all/", HttpContext.Session.GetString("JWToken"));
 
             TempVM objVM = new TempVM()
             {
@@ -48,7 +51,7 @@ namespace TemperatureMonitorWeb.Controllers
             }
 
             // For Update
-            objVM.Temp= await _tRepo.GetAsync(SD.TemperaturesLogEntryAPIPath, id.GetValueOrDefault());
+            objVM.Temp= await _tRepo.GetAsync(SD.TemperaturesLogEntryAPIPath, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
 
             if (objVM.Temp == null)
                 return NotFound();
@@ -65,7 +68,7 @@ namespace TemperatureMonitorWeb.Controllers
 
                 if (obj.Temp.Id==0)
                 {
-                    await _tRepo.CreateAsync(SD.TemperaturesLogEntryAPIPath, obj.Temp);
+                    await _tRepo.CreateAsync(SD.TemperaturesLogEntryAPIPath, obj.Temp, HttpContext.Session.GetString("JWToken"));
                 }
                 //else
                 //{
@@ -84,7 +87,7 @@ namespace TemperatureMonitorWeb.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var status=   await _tRepo.DeleteAsync(SD.TemperaturesLogEntryAPIPath,id);
+            var status=   await _tRepo.DeleteAsync(SD.TemperaturesLogEntryAPIPath,id, HttpContext.Session.GetString("JWToken"));
             if (status)
             {
                 return Json(new { success = true, message = "Delete Successful" });
@@ -96,7 +99,7 @@ namespace TemperatureMonitorWeb.Controllers
 
         public async Task<IActionResult> GetAllTemp()
         {
-            return Json(new { data = await _tRepo.GetAllAsync(SD.TemperaturesLogEntryAPIPath) });
+            return Json(new { data = await _tRepo.GetAllAsync(SD.TemperaturesLogEntryAPIPath, HttpContext.Session.GetString("JWToken")) });
         }
     }
 }

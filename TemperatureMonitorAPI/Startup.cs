@@ -43,9 +43,9 @@ namespace TemperatureMonitorAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            //string cs= Configuration.GetConnectionString("DefaultConnection");//"server=localhost;database=tempmonitordb;uid=root;pwd=1qaz@WSX"
-            //services.AddDbContext<TMContext>(options => options.UseMySql("server=172.17.0.2;database=tempmonitordb;uid=root;pwd=my-pw"));
-            services.AddDbContext<TMContext>(options => options.UseMySql("server=localhost;database=tempmonitordb;uid=root;pwd=1qaz@WSX"));
+           
+            string cs= Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<TMContext>(options => options.UseMySql(cs));
             //mySqlOptions => mySqlOptions.ServerVersion(new Version(8, 0, 20), ServerType.MySql)));
 
             services.AddScoped<ITemperatureLogEntryRepository, TemperatureLogEntryRepository>();

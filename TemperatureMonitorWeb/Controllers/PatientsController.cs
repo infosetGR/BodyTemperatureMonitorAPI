@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TemperatureMonitorWeb.Models;
 using TemperatureMonitorWeb.Repository.IRepository;
 
 namespace TemperatureMonitorWeb.Controllers
 {
+    [Authorize]
     public class PatientsController : Controller
     {
         private readonly IPatientDetailRepository _pdRepo;
@@ -22,7 +25,7 @@ namespace TemperatureMonitorWeb.Controllers
         {
             return View(new PatientDetail() { });
         }
-
+//        [Authorize(Roles="Admin")]
         public async Task<IActionResult> Upsert(int? id)
         {
             PatientDetail p = new PatientDetail();
@@ -33,7 +36,7 @@ namespace TemperatureMonitorWeb.Controllers
             }
 
             // For Update
-            p = await _pdRepo.GetAsync(SD.PatientDetailsAPIPath+"id?Userid=", id.GetValueOrDefault());
+            p = await _pdRepo.GetAsync(SD.PatientDetailsAPIPath+"id?Userid=", id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
 
             if (p == null)
                 return NotFound();
@@ -59,22 +62,22 @@ namespace TemperatureMonitorWeb.Controllers
                     }
                     obj.Picture = p1;
                 }
-                //else
-                //{
-                //    if (obj.UserId != 0)
-                //    {
-                //        var objfromDb = await _pdRepo.GetAsync(SD.PatientDetailsAPIPath + "id?Userid=", obj.UserId);
-                //        obj.Picture = objfromDb.Picture;
-                //    }
-                //}
+                else
+                {
+                    if (obj.UserId != 0)
+                    {
+                        var objfromDb = await _pdRepo.GetAsync(SD.PatientDetailsAPIPath + "id?Userid=", obj.UserId, HttpContext.Session.GetString("JWToken"));
+                        obj.Picture = objfromDb.Picture;
+                    }
+                }
 
                 if (obj.UserId==0)
                 {
-                    await _pdRepo.CreateAsync(SD.PatientDetailsAPIPath+"wu/", obj);
+                    await _pdRepo.CreateAsync(SD.PatientDetailsAPIPath+"wu/", obj, HttpContext.Session.GetString("JWToken"));
                 }
                 else
                 {
-                    await _pdRepo.UpdateAsync(SD.PatientDetailsAPIPath +  obj.UserId, obj);
+                    await _pdRepo.UpdateAsync(SD.PatientDetailsAPIPath +  obj.UserId, obj, HttpContext.Session.GetString("JWToken"));
                 }
                 return RedirectToAction(nameof(Index));
 
@@ -89,7 +92,7 @@ namespace TemperatureMonitorWeb.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var status=   await _pdRepo.DeleteAsync(SD.PatientDetailsAPIPath,id);
+            var status=   await _pdRepo.DeleteAsync(SD.PatientDetailsAPIPath,id, HttpContext.Session.GetString("JWToken"));
             if (status)
             {
                 return Json(new { success = true, message = "Delete Successful" });
@@ -101,7 +104,7 @@ namespace TemperatureMonitorWeb.Controllers
 
         public async Task<IActionResult> GetPatientDetails()
         {
-            return Json(new { data = await _pdRepo.GetAllAsync(SD.PatientDetailsAPIPath+"all/") });
+            return Json(new { data = await _pdRepo.GetAllAsync(SD.PatientDetailsAPIPath+"all/", HttpContext.Session.GetString("JWToken")) });
         }
     }
 }

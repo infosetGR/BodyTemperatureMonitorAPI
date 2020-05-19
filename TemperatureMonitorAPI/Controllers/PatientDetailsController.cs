@@ -55,6 +55,7 @@ namespace TemperatureMonitorAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet( Name = "GetPatientDetails")]
+        [Authorize]
         public IActionResult GetPatientDetails()
         {
             int Userid = 0;
@@ -117,6 +118,7 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public IActionResult UpdatePatientDetails(int id, [FromBody] PatientDetailDto pdDto)
         {
             if (pdDto == null || id != pdDto.UserId)
@@ -153,6 +155,7 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(201, Type = typeof(PatientDetailDto))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public IActionResult CreatePatientDetailsWithUser([FromBody] PatientDetailCreateDto pdDto)
         {
             
@@ -193,6 +196,7 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(201, Type = typeof(PatientDetailDto))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public IActionResult CreatePatientDetails([FromBody] PatientDetailCreateDto pdDto)
         {
             int Userid = 0;
@@ -230,6 +234,7 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public IActionResult DeletePatientDetails(int id)
         {
             //int Userid = 0;

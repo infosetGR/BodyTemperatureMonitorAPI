@@ -89,6 +89,7 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public IActionResult CreateTempLogs([FromBody] TemperatureLogEntryCreateDto t)
         {
             //int Userid = 0;
@@ -123,6 +124,7 @@ namespace TemperatureMonitorAPI.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public IActionResult DeleteTempLog(int id)
         {
             //int Userid = 0;

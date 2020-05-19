@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,5 +11,6 @@ namespace TemperatureMonitorWeb
         public static string APIBaseUrl = "https://localhost:44396/";
         public static string PatientDetailsAPIPath = APIBaseUrl+"api/v1/PatientDetails/";
         public static string TemperaturesLogEntryAPIPath = APIBaseUrl+"api/v1/TemperatureLogEntry/";
+        public static string AccountAPIPath = APIBaseUrl + "api/v1/Users/";
     }
 }
