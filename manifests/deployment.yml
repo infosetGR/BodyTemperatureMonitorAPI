@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "mykubernetescluster"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "mykubernetescluster"
+    spec:
+      containers:
+        - name: "mykubernetescluster"
+          image: "containerregistryfotis.azurecr.io/mykubernetescluster"
+          ports:
+          - containerPort: 80
