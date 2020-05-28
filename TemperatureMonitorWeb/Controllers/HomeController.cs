@@ -99,7 +99,8 @@ namespace TemperatureMonitorWeb.Controllers
             }
             TempData["alert"] = "Registeration Successful";
 
-            HttpContext.Session.SetString("JWToken", obj.Token);
+            if (obj.Token!=null)
+                HttpContext.Session.SetString("JWToken", obj.Token);
             return RedirectToAction("Login");
         }
 

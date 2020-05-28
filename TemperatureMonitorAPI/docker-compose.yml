@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: '1qaz@WSX'
+      MYSQL_ROOT_PASSWORD: '1qaz@WSX'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+# Names our volume
+
+  
+  TemperatureMonitorAPI:
+    depends_on:
+      - db
+    image: fotisss/temperaturemonitorapi    
+    build: 
+      context: .
+   #   dockerfile: ./Dockerfile  
+    ports: 
+      - "8080:80"
+
+  TemperatureMonitorWeb:
+    depends_on:
+      - TemperatureMonitorAPI
+    image: fotisss/temperaturemonitorweb   
+    build: 
+      context: .
+      #dockerfile: TemperatureMonitorWeb/Dockerfile  
+    ports: 
+      - "80:80"
+
+volumes:
+  my-db:

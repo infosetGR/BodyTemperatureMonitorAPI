@@ -94,5 +94,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:TemperatureMonitorAPI.ExtensionMethods.CreateDatabase``1(Microsoft.AspNetCore.Hosting.IWebHost)">
+            <summary>  
+            Migrates the database automatically when application start.  
+            </summary>  
+            <typeparam name="T"></typeparam>  
+            <param name="webHost">The web host.</param>  
+            <returns>IWebHost.</returns>  
+        </member>
     </members>
 </doc>

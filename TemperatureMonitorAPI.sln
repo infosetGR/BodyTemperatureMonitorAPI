@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureMonitorAPI", "TemperatureMonitorAPI\TemperatureMonitorAPI.csproj", "{249CC12E-5536-41E5-BC27-D4C7A7572905}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperatureMonitorWeb", "TemperatureMonitorWeb\TemperatureMonitorWeb.csproj", "{1E702DAB-FCC1-4E02-A05B-2F153FAE7EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureMonitorWeb", "TemperatureMonitorWeb\TemperatureMonitorWeb.csproj", "{1E702DAB-FCC1-4E02-A05B-2F153FAE7EC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B608BF0F-6FCB-4458-B298-4687FD032A31}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
