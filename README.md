@@ -1,9 +1,13 @@
 # BodyTemperatureMonitorAPI
 Sample Rest API in .NET Core 3.1 with Swagger, JWT authentication and Entity Framework  to Monitor Patient Body Temperatures
 
-Run on VS2019
+Run on docker:
+docker compose up on root folder
+
+Run on VS2019:
 - Open solution file
 - Edit Mysql connection string in Startup.cs (A Mysql database is required)
+- Edit web api address in SD.cs
 - In Package Manager Console run update-database
 - Run the project
 
@@ -24,3 +28,4 @@ Patients can also view all the fever sessions they had between any two dates
  Change Log:
  5/5/2020 API implementation
  17/5/2020 Asp.net core MVC front end
+ 28/5/2020 docker-compose and dockerfiles
