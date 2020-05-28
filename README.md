@@ -2,7 +2,7 @@
 Sample Rest API in .NET Core 3.1 with Swagger, JWT authentication and Entity Framework  to Monitor Patient Body Temperatures
 
 Run on docker:
-docker compose up on root folder
+docker compose up
 
 Run on VS2019:
 - Open solution file
