@@ -23,11 +23,10 @@ steps:
     repository: 'fotisss/temperature-monitor-api'
     command: 'buildAndPush'
     Dockerfile: '**/TemperatureMonitorAPI/Dockerfile'
-    tags: '$(tag)'
-- task: Docker@2
+- task: Docker@3
   inputs:
-      containerRegistry: 'fotisss-docker-hub-connection'
-      repository: 'fotisss/temperature-monitor-web'
-      command: 'buildAndPush'
-      Dockerfile: '**/TemperatureMonitorWeb/Dockerfile'
-      tags: '$(tag)'
+    containerRegistry: 'fotisss-docker-hub-connection'
+    repository: 'fotisss/temperature-monitor-web'
+    command: 'buildAndPush'
+    Dockerfile: '**/TemperatureMonitorWeb/Dockerfile'
+    
