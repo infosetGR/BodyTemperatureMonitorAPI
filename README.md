@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/icdmsinfoset/49f84f17-0a89-4e3a-82dd-01df57eaafe1/0543af49-34f4-4fc6-a696-83f4091c634e/_apis/work/boardbadge/7a0072cf-fbc7-468a-8944-b58c492721d2)](https://dev.azure.com/icdmsinfoset/49f84f17-0a89-4e3a-82dd-01df57eaafe1/_boards/board/t/0543af49-34f4-4fc6-a696-83f4091c634e/Microsoft.RequirementCategory)
 # BodyTemperatureMonitorAPI
 Sample Rest API in .NET Core 3.1 with Swagger, JWT authentication and Entity Framework  to Monitor Patient Body Temperatures
 
